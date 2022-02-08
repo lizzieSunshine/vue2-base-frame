@@ -1,2 +1,2 @@
 # vue2-base-frame
-vue2-base-frame
+基于vue的基础框架
