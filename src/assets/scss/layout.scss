@@ -1,0 +1,97 @@
+/**
+ * 高度变量
+ */
+
+// header height
+$header-height__sm: 40px;
+$header-height__md: 60px;
+
+// footer height
+$footer-height__md: 120px;
+
+// footer height
+$footerHeight: 120px;
+
+/**
+ * mixin
+ */
+
+// header height
+@mixin headerHeight($height) {
+  .adapt-header-height {
+    height: $height;
+  }
+}
+
+// footer height
+@mixin footerHeight($height) {
+  .adapt-footer-height {
+    height: $height;
+  }
+}
+
+// content height
+@mixin contentHeight($headerHeight, $footerHeight) {
+  .layout-with-header {
+    .main-conn {
+      min-height: calc(100% - $headerHeight - $footerHeight);
+    }
+  }
+}
+
+/**
+ * 公用样式
+ */
+
+// layout
+.layout {
+  height: 100vh;
+}
+
+// 带header
+.layout-with-header {
+  box-sizing: border-box;
+}
+
+// 全屏
+.layout-full {
+  width: 100vw;
+  height: 100vh;
+
+  .main-conn {
+    height: 100%;
+  }
+}
+
+/**
+ * common class
+ */
+@include footerHeight($footer-height__md);
+
+/**
+  * 设备适应
+  */
+
+// xs
+@media only screen and (max-width: 767px) {
+  @include headerHeight($header-height__sm);
+  @include contentHeight($header-height__sm, $footerHeight);
+}
+
+// sm
+@media only screen and (min-width: 768px) {
+  @include headerHeight($header-height__sm);
+  @include contentHeight($header-height__sm, $footerHeight);
+}
+
+// md
+@media only screen and (min-width: 992px) {
+  @include headerHeight($header-height__md);
+  @include contentHeight($header-height__md, $footerHeight);
+}
+
+// lg
+@media only screen and (min-width: 1200px) {}
+
+// xl
+@media only screen and (min-width: 1920px) {}

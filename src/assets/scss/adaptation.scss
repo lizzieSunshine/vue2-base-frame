@@ -1,0 +1,61 @@
+/**
+ * 设备适配
+ */
+
+/* fontSize */
+// 24px
+$fs-24__xs: 20px;
+$fs-24__md: 24px;
+
+// view width
+$view-width__xs: calc(100% - 40px);
+$view-width__md: 80%;
+
+/**
+ * mixin
+ */
+@mixin viewWidth($view-width) {
+  .view-width {
+    width: $view-width;
+  }
+}
+
+@mixin fontSize($fs) {
+  font-size: $fs;
+}
+
+
+/**
+ * 设备适应
+ */
+
+// xs
+@media only screen and (max-width: 767px) {
+  @include viewWidth($view-width__xs);
+
+  .font-size-24 {
+    @include fontSize($fs-24__xs);
+  }
+}
+
+// sm
+@media only screen and (min-width: 768px) {
+  @include viewWidth($view-width__xs);
+} 
+
+// md
+@media only screen and (min-width: 992px) {
+  @include viewWidth($view-width__md);
+
+  .font-size-24 {
+    @include fontSize($fs-24__md);
+  }
+}
+
+// lg
+@media only screen and (min-width: 1200px) {
+}
+
+// xl
+@media only screen and (min-width: 1920px) {
+}

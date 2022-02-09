@@ -1,0 +1,69 @@
+/**
+ * 全局共享样式
+ * 其他样式表、template均可直接使用变量、class
+ */
+// 主要颜色
+$primary: #FF8000;
+
+// border color
+$primaryBorder: #ddd;
+$lighterBorder: #eee;
+
+// text color
+$primaryText:#000A42;
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+div,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  background: #FFFFFF;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+}
+
+pre,
+code {
+  border-radius: 4px;
+  font-family: 'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;
+}
+
+/**
+ * 自定义样式
+ */
+.pr {
+  position: relative;
+}
+
+.pa {
+  position: absolute;
+}
+
+.view-width {
+  margin: 0 auto;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
