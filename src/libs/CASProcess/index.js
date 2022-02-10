@@ -37,7 +37,14 @@ class CASProcess extends CASInterface {
    * 前往登录页
    * @param {string} target window.open打开方式
    */
-  gotoLogin(target = '_self') { }
+  gotoLogin(target = '_self') {
+    if (!this.loginUrl) {
+      Message.warning('缺失登录地址');
+      return;
+    };
+    
+    window.open(this.loginUrl, target);
+  }
 
   /**
    * 解析登录返回参数

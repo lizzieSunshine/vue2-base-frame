@@ -16,7 +16,7 @@ import sessionStorage from '@/libs/sessionStorage';
  * go to index page
  */
 export const goHome = () => {
-  router.push({name: 'index'});
+  router.push({ name: 'index' });
 };
 
 /**
@@ -24,6 +24,12 @@ export const goHome = () => {
  * store & get storage
  * **********************
  */
+
+/**
+ * store user into storage
+ * @param {Object} userInfo user info
+ */
+export const storeUserInfotoStorage = userInfo => {};
 
 /**
  * store user into vuex
