@@ -4,6 +4,7 @@ import { STATUS_CODE } from './libs';
 import storage from "@/libs/sessionStorage";
 import CAS from '@/libs/CASProcess/';
 import apis from '@/apis/';
+import { isCAS } from '@/config';
 
 const BASEURL = window.global['apiUrl'];
 const TIMEOUT = window.global['timeout'];
@@ -11,7 +12,13 @@ const TIMEOUT = window.global['timeout'];
 /**
  * 更新token过期时间
  */
- const checkExpire = (response = {}) => {
+const checkExpire = (response = {}) => {
+  // 无需CAS
+  if (!isCAS) {
+    return response;
+  }
+
+  // 需要CAS
   const { config, data = {} } = response;
   const { auth = true } = config;
   const { code = 0 } = data || {};
@@ -41,7 +48,7 @@ const checkStatus = (response = {}) => {
 
   if (status === 200 || status === 304) return data;
 
-  if (status === 401) CAS.expiredAPIIntercepors();
+  if (status === 401 && isCAS) CAS.expiredAPIIntercepors();
 
   let message = status === 401 ? '登录失效，请重新登录' : '访问异常';
 
@@ -95,6 +102,10 @@ Axios.defaults.baseURL = BASEURL;
  */
 Axios.interceptors.request.use(
   config => {
+    // 非CAS
+    if (!isCAS) return config;
+
+    // CAS
     const { auth } = config;
 
     // 无需token

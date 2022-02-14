@@ -6,5 +6,8 @@ export default {
   jsencryptPublicKey: '',
 
   // jsencrypt私钥
-  jsencryptPrivateKey: ''
+  jsencryptPrivateKey: '',
+
+  // 是否需要CAS
+  isCAS: false
 };
