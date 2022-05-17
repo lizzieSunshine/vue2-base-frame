@@ -3,7 +3,7 @@
  */
 import _ from 'underscore';
 import store from '@/store';
-import router from '@/router/routes';
+import router from '@/router/';
 import sessionStorage from '@/libs/sessionStorage';
 
 /**
