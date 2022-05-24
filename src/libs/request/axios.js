@@ -151,6 +151,9 @@ _.map(apis, (val, key) => {
       // handle get or post params
       options[method === 'get' ? 'params' : 'data'] = data;
 
+      // agree params and data simultaneous existence
+      initOps['params'] && (options['params'] = initOps.params);
+
       return (
         Axios(options)
           .then(checkExpire)
