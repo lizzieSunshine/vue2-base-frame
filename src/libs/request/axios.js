@@ -4,7 +4,8 @@ import { STATUS_CODE } from './libs';
 import storage from "@/libs/sessionStorage";
 import CAS from '@/libs/CASProcess/';
 import apis from '@/apis/';
-import { isCAS } from '@/config';
+import config from '@/config';
+const { isCAS } = config;
 
 const BASEURL = window.global['apiUrl'];
 const TIMEOUT = window.global['timeout'];
