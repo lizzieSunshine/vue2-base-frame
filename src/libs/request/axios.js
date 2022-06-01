@@ -5,10 +5,11 @@ import storage from "@/libs/sessionStorage";
 import CAS from '@/libs/CASProcess/';
 import apis from '@/apis/';
 import config from '@/config';
-const { isCAS } = config;
+const { isCAS, authStrict = false } = config;
 
 const BASEURL = window.global['apiUrl'];
 const TIMEOUT = window.global['timeout'];
+const StatusCodeKey = "statusCode";
 
 /**
  * 更新token过期时间
@@ -44,10 +45,14 @@ const checkStatus = (response = {}) => {
   const {
     status,
     statusText,
-    data
+    data,
+    config
   } = response;
+  // 接口是否需要token验证
+  const { auth = false } = config;
 
-  if (status === 200 || status === 304) return data;
+  // 非严格模式下，配置了auth=true的接口只在request拦截器中验证token有效性，在响应中收全局token失效操作影响
+  if (status === 200 || status === 304) return !authStrict ? data : { ...data, _auth: auth };
 
   if (status === 401 && isCAS) CAS.expiredAPIIntercepors();
 
@@ -56,7 +61,8 @@ const checkStatus = (response = {}) => {
   return {
     code: status,
     message,
-    data: statusText
+    data: statusText,
+    _auth: auth
   };
 };
 
@@ -66,16 +72,24 @@ const checkStatus = (response = {}) => {
  * @return {*}
  */
 const checkResult = result => {
-  // if (!loginState) return;
-  if (result.code === STATUS_CODE.succsess) {
+  // 是否需要token验证
+  const { _auth = false } = result;
+  const code = result[StatusCodeKey] || "0";
+  
+  if (code === STATUS_CODE.succsess) {
     // 加载动画
     // Loading.close()
     // 状态码过滤
     // 成功
   } else {
+
     // 失败
-    // if (result.code === STATUS_CODE.token) {
-    // }
+    if (code === STATUS_CODE.token) {
+      // 登录失效
+      if (authStrict && !_auth) return;
+
+      // todo，比如可以回首页
+    }
   }
   return result;
 };
